@@ -20,19 +20,16 @@ const staticGraphics = createGraphics((p5) => {
 
 // Simple animation loop example with one holded value – time
 
-const pulseGraphics = createGraphics(
-  (p5, { time }) => {
-    const width = Math.sin(time) * 300;
+const pulseGraphics = createGraphics((p5, time) => {
+  const width = Math.sin(time) * 300;
 
-    p5.clear();
-    p5.fill('#DC872D');
-    p5.rect(300, 300, width);
+  p5.clear();
+  p5.fill('#DC872D');
+  p5.rect(300, 300, width);
 
-    // Pass callback function to redraw that calculate new time value
-    p5.redraw(() => ({ time: time + 0.01 }));
-  },
-  { time: 0 }
-); // 0 is initial value of time
+  // Pass new time value to redraw function
+  p5.redraw(time + 0.01);
+}, 0); // 0 is initial time value
 
 // Full drawing loop example with condition exit
 

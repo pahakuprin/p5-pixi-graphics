@@ -15,8 +15,10 @@ export const createGraphics = (draw, state, ...args) => {
       drawingContext.drawRoundedRect(x, y, w, h, c);
       drawingContext.endFill();
     },
-    redraw: (update) => {
-      Object.assign(state, update(state));
+    redraw: (updater) => {
+      const update = typeof updater === 'function' ? updater(state) : updater;
+      state = typeof state === 'object' ? { ...state, ...update } : update;
+      // Object.assign(state, update(state));
       window.requestAnimationFrame(() => draw(p5, state));
       // Ticker.shared.addOnce(() => draw(p5, state));  // gets in the infinity loop
     },
